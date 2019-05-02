@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/animals")
 public class AnimalController {
@@ -20,34 +23,34 @@ public class AnimalController {
         this.animalRepository = animalRepository;
     }
 
-    @GetMapping(params = "name")
-    public Animal[] searchByName(@RequestParam(name = "name") String name) {
-        return this.animalRepository.searchByName(name);
-    }
-
-    @GetMapping(params = "clinicNo")
-    public Animal[] getByClinicNo(@RequestParam(name = "clinicNo") String clinicNo) {
-        return this.animalRepository.searchByClinicNo(clinicNo);
-    }
-
-    @GetMapping(params = "animalNo")
-    public Animal[] getByClinicNo(@RequestParam(name = "animalNo") Integer animalNo) {
-        return this.animalRepository.searchByAnimalNo(animalNo);
-    }
-
     @GetMapping(params = {"clinicNo",  "animalNo"})
     public Animal getByPK(@RequestParam(name = "clinicNo") String clinicNo,
                           @RequestParam(name = "animalNo") Integer animalNo) {
-        Animal animal = this.animalRepository.searchByPK(new AnimalPK(animalNo, clinicNo));
-        if (animal != null) {
-            return animal;
+        Optional<Animal> animal = this.animalRepository.findById(new AnimalPK(animalNo, clinicNo));
+        if (animal.isPresent()) {
+            return animal.get();
         }
 
         throw new EntityNotFoundError("animal");
     }
 
     @GetMapping(value = "")
-    public Animal[] getAnimals() {
-        return this.animalRepository.getAllv2();
+    public List<Animal> getAnimals() {
+        return this.animalRepository.findAll();
+    }
+
+    @GetMapping(params = "name")
+    public List<Animal> searchByName(@RequestParam(name = "name") String name) {
+        return this.animalRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    @GetMapping(params = "clinicNo")
+    public List<Animal> getByClinicNo(@RequestParam(name = "clinicNo") String clinicNo) {
+        return this.animalRepository.findByClinicNo(clinicNo);
+    }
+
+    @GetMapping(params = "animalNo")
+    public List<Animal> getByClinicNo(@RequestParam(name = "animalNo") Integer animalNo) {
+        return this.animalRepository.findByAnimalNo(animalNo);
     }
 }
