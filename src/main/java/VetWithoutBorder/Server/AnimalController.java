@@ -34,7 +34,7 @@ public class AnimalController {
         throw new EntityNotFoundError("animal");
     }
 
-    @GetMapping(value = "")
+    @GetMapping(value = "", params = "")
     public List<Animal> getAnimals() {
         return this.animalRepository.findAll();
     }

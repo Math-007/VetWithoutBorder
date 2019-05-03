@@ -4,13 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
 @Entity
 @Embeddable
 @Table(name= "Animal")
 @IdClass(AnimalPK.class)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Animal {
     @Id
     @Column(name = "animalNo")
