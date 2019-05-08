@@ -15,5 +15,6 @@
         <property name="hibernate.default_schema">vetosansfrontieres</property>
 
         <mapping class="VetWithoutBorder.Entities.Animal"/>
+        <mapping class="VetWithoutBorder.Entities.Owner"/>
     </session-factory>
 </hibernate-configuration>
