@@ -10,7 +10,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 abstract class AbstractRepository<TABLE, PK extends Serializable> {
@@ -69,8 +68,6 @@ abstract class AbstractRepository<TABLE, PK extends Serializable> {
     }
 
     public TABLE insert(TABLE newValue) {
-
-
         Session session = factory.openSession();
         Transaction tx = null;
         try {

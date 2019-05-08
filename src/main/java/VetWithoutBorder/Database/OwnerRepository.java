@@ -2,7 +2,6 @@ package VetWithoutBorder.Database;
 
 import VetWithoutBorder.Entities.Owner;
 import VetWithoutBorder.Entities.OwnerPK;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

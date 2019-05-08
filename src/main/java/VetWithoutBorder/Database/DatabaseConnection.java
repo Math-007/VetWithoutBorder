@@ -8,7 +8,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.io.File;
 
-
 public class DatabaseConnection {
 
     public SessionFactory connect() {
