@@ -16,5 +16,6 @@
 
         <mapping class="VetWithoutBorder.Entities.Animal"/>
         <mapping class="VetWithoutBorder.Entities.Owner"/>
+        <mapping class="VetWithoutBorder.Entities.Clinic"/>
     </session-factory>
 </hibernate-configuration>
