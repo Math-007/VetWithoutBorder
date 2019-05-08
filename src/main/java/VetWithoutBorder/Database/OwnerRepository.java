@@ -3,19 +3,22 @@ package VetWithoutBorder.Database;
 import VetWithoutBorder.Entities.Owner;
 import VetWithoutBorder.Entities.OwnerPK;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+@Transactional
 @Repository
 public class OwnerRepository extends AbstractRepository<Owner, OwnerPK> {
 
-    OwnerRepository(@Autowired Session session) {
-        super(session, Owner.class);
+    OwnerRepository(@Autowired SessionFactory factory) {
+        super(factory, Owner.class);
     }
 
     public List<Owner> searchByClinicNo(String clinicNo) {

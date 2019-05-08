@@ -4,17 +4,20 @@ import VetWithoutBorder.Entities.Animal;
 import VetWithoutBorder.Entities.AnimalPK;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 @Repository
 public class AnimalRepository extends AbstractRepository<Animal, AnimalPK> {
 
-    public AnimalRepository(@Autowired Session session) {
-        super(session, Animal.class);
+    public AnimalRepository(@Autowired SessionFactory factory) {
+        super(factory, Animal.class);
     }
 
     public List<Animal> searchByName(String name) {
