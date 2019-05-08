@@ -1,8 +1,24 @@
 package VetWithoutBorder.Entities;
 
 import lombok.*;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
+import java.sql.Date;
+
+@Converter
+class TimeConverter implements AttributeConverter<String, Date> {
+
+    @Override
+    public Date convertToDatabaseColumn(String attribute) {
+        return Date.valueOf(attribute);
+    }
+
+    @Override
+    public String convertToEntityAttribute(Date dbData) {
+        return dbData.toString();
+    }
+}
 
 @Entity
 @Embeddable
@@ -12,8 +28,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Animal {
+
     @Id
-    @Column(name = "animalNo")
+    @SequenceGenerator(name="pk_sequence", sequenceName="animal_animalno_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.IDENTITY, generator="pk_sequence")
+    @Column(name="animalno", insertable = false, updatable = false)
     private Integer animalNo;
 
     @Id
@@ -32,11 +51,14 @@ public class Animal {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "dateInscription")
-    private String inscriptionDate;
+    @Column(name = "dateInscription", insertable = false, updatable = false)
+    // @GeneratedValue(strategy=GenerationType.IDENTITY)
+    // @Convert(converter = TimeConverter.class)
+    private Date inscriptionDate;
 
     @Column(name = "dateNaissance")
-    private String dateOfBirth;
+    //@Convert(converter = TimeConverter.class)
+    private Date dateOfBirth;
 
     @Column(name = "etatActuel")
     private String state;

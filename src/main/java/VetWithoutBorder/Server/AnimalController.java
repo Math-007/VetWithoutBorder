@@ -4,11 +4,9 @@ import VetWithoutBorder.Database.*;
 import VetWithoutBorder.Entities.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -51,5 +49,10 @@ public class AnimalController {
     @GetMapping(value = "")
     public List<Animal> getAnimals() {
         return this.animalRepository.findAll();
+    }
+
+    @PostMapping(value = "")
+    public Animal insert(@RequestBody Animal animal){
+        return this.animalRepository.insert(animal);
     }
 }

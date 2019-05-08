@@ -1,6 +1,7 @@
 package VetWithoutBorder.Database;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.MatchMode;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,18 +11,17 @@ import javax.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class AbstractRepository<TABLE, PK extends Serializable> {
+abstract class AbstractRepository<TABLE, PK extends Serializable> {
 
-    protected Session session;
+    private Session session;
 
     private Class<TABLE> classType;
 
-    protected AbstractRepository(Session session, Class<TABLE> classType) {
+    AbstractRepository(Session session, Class<TABLE> classType) {
         this.session = session;
         this.classType = classType;
     }
 
-    // @SuppressWarnings("unchecked")
     public List<TABLE> findAll() {
         CriteriaBuilder builder = this.session.getCriteriaBuilder();
         CriteriaQuery<TABLE> query = builder.createQuery(this.classType);
@@ -34,7 +34,15 @@ public abstract class AbstractRepository<TABLE, PK extends Serializable> {
         return this.session.get(this.classType, pk);
     }
 
-    protected <T> List<TABLE> where(String attributeName, T attribute) {
+    public TABLE insert(TABLE newValue) {
+        Transaction transaction = session.beginTransaction();
+        session.save(newValue);
+        transaction.commit();
+
+        return newValue;
+    }
+
+    <T> List<TABLE> where(String attributeName, T attribute) {
         CriteriaBuilder builder = this.session.getCriteriaBuilder();
         CriteriaQuery<TABLE> query = builder.createQuery(this.classType);
         Root<TABLE> root = query.from(this.classType);
@@ -44,7 +52,7 @@ public abstract class AbstractRepository<TABLE, PK extends Serializable> {
         return session.createQuery(query).getResultList();
     }
 
-    protected List<TABLE> likeAnywhere(String attributeName, String attribute) {
+    List<TABLE> likeAnywhere(String attributeName, String attribute) {
         CriteriaBuilder builder = this.session.getCriteriaBuilder();
         CriteriaQuery<TABLE> query = builder.createQuery(this.classType);
         Root<TABLE> root = query.from(this.classType);

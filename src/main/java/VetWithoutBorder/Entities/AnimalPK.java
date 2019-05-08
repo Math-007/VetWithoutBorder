@@ -4,32 +4,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimalPK implements Serializable {
-    @Column(name = "animalNo")
+/*    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "animalNo", updatable = false)*/
     private Integer animalNo;
-    @Column(name = "cliniqueNo")
+/*    @Column(name = "cliniqueNo")*/
     private String clinicNo;
 
-/*    protected final boolean equals_(Animal obj)
-    {
-        // Comparer les attributs
-        return obj.getAnimalNo().equals(this.animalNo) && obj.getClinicNo()
+    public void setAnimalNo(Integer animalNo) {
+        this.animalNo = animalNo;
     }
 
-
-    public boolean equals(Object o){
-        if ((o != null) && (o.getClass() == Animal.class))
-        {
-            return equals_((Animal)o);
-        }
-        return false;
-    }*/
+    public void setClinicNo(String clinicNo) {
+        this.clinicNo = clinicNo;
+    }
 }
