@@ -1,0 +1,12 @@
+FROM gradle:jdk8
+
+RUN mkdir -p /home/gradle/app
+WORKDIR /home/gradle/app
+
+COPY . .
+
+RUN gradle build
+
+EXPOSE 3000
+
+CMD ["gradle", "run"]

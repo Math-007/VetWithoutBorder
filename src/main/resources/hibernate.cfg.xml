@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 5.3//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-5.3.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="dialect">org.hibernate.dialect.PostgreSQL91Dialect</property>
+        <property name="connection.driverClass">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/tp5</property>
+        <property name="connection.username">mathieu</property>
+        <property name="connection.password">postgres</property>
+
+        <property name="show_sql">true</property>
+        <property name="hibernate.default_schema">vetosansfrontieres</property>
+
+        <mapping class="VetWithoutBorder.Entities.Animal"/>
+        <mapping class="VetWithoutBorder.Entities.Owner"/>
+        <mapping class="VetWithoutBorder.Entities.Clinic"/>
+    </session-factory>
+</hibernate-configuration>

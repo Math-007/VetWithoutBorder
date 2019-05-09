@@ -2,15 +2,37 @@ package VetWithoutBorder.Database;
 
 import VetWithoutBorder.Entities.Owner;
 import VetWithoutBorder.Entities.OwnerPK;
-import org.springframework.data.repository.CrudRepository;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
-public interface OwnerRepository extends CrudRepository<Owner, OwnerPK> {
+@Transactional
+@Repository
+public class OwnerRepository extends AbstractRepository<Owner, OwnerPK> {
 
-    List<Owner> findAll();
+    OwnerRepository(@Autowired SessionFactory factory) {
+        super(factory, Owner.class);
+    }
 
-    List<Owner> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String firstName, String lastName);
+    public List<Owner> searchByClinicNo(String clinicNo) {
+        return super.where("clinicNo", clinicNo);
+    }
 
-    List<Owner> findByClinicNo(String clinicNo);
+    public List<Owner> searchByOwnerName(String firstName, String lastName) {
+        List<Owner> first = super.likeAnywhere("firstName", firstName);
+        List<Owner> last = super.likeAnywhere("lastName", lastName);
+
+        Collection<Owner> set = new HashSet<>();
+
+        set.addAll(first);
+        set.addAll(last);
+
+        return new ArrayList<>(set);
+    }
 }

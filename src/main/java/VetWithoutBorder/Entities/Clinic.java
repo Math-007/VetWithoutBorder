@@ -11,27 +11,19 @@ import javax.persistence.*;
 
 @Entity
 @Embeddable
-@Table(name= "Proprietaire")
-@IdClass(OwnerPK.class)
-public class Owner {
-
-    @Id
-    @Column(name = "propNo")
-    private String ownerNo;
+@Table(name= "Clinique")
+public class Clinic {
 
     @Id
     @Column(name = "cliniqueNo")
     private String clinicNo;
 
-    @Column(name = "prenom")
-    private String firstName;
-
-    @Column(name = "nom")
-    private String lastName;
+    @Column(name = "numTelecopieur")
+    private String faxNumber;
 
     @Column(name = "numTelephone")
     private String phoneNumber;
 
-    @Embedded()
+    @Embedded
     private Address address;
 }

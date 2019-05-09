@@ -3,19 +3,30 @@ package VetWithoutBorder.Database;
 import VetWithoutBorder.Entities.Animal;
 import VetWithoutBorder.Entities.AnimalPK;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.data.repository.CrudRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Transactional
 @Repository
-public interface AnimalRepository extends CrudRepository<Animal, AnimalPK> {
+public class AnimalRepository extends AbstractRepository<Animal, AnimalPK> {
 
-    List<Animal> findByNameContainingIgnoreCase(String name);
+    public AnimalRepository(@Autowired SessionFactory factory) {
+        super(factory, Animal.class);
+    }
 
-    List<Animal> findByClinicNo(String clinicNo);
+    public List<Animal> searchByName(String name) {
+        return super.likeAnywhere("name", name);
+    }
 
-    List<Animal> findByAnimalNo(Integer animalNo);
+    public List<Animal> searchByClinicNo(String clinicNo) {
+        return super.where("clinicNo", clinicNo);
+    }
 
-    List<Animal> findAll();
+    public List<Animal> searchByAnimalNo(Integer animalNo) {
+        return super.where("animalNo", animalNo);
+    }
 }

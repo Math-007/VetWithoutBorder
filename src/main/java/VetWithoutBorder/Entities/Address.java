@@ -1,10 +1,12 @@
 package VetWithoutBorder.Entities;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+@EqualsAndHashCode
 @Data
 @Embeddable
 class Address {
