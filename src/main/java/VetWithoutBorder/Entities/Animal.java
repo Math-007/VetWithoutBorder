@@ -1,32 +1,18 @@
 package VetWithoutBorder.Entities;
 
 import lombok.*;
-import org.hibernate.annotations.GenerationTime;
-
 import javax.persistence.*;
 import java.sql.Date;
 
-@Converter
-class TimeConverter implements AttributeConverter<String, Date> {
-
-    @Override
-    public Date convertToDatabaseColumn(String attribute) {
-        return Date.valueOf(attribute);
-    }
-
-    @Override
-    public String convertToEntityAttribute(Date dbData) {
-        return dbData.toString();
-    }
-}
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 
 @Entity
 @Embeddable
 @Table(name= "Animal")
 @IdClass(AnimalPK.class)
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Animal {
 
     @Id
