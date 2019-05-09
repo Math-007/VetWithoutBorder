@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  vet-without-border:
+    container_name: vet-without-border
+    network_mode: "host"
+    build:
+      context: .
+      dockerfile: Dockerfile.VetWithoutBorder
+    ports:
+      - '3000:3000'
