@@ -14,9 +14,8 @@ import java.util.List;
 
 abstract class AbstractRepository<TABLE, PK extends Serializable> {
 
-    private SessionFactory factory;
-
-    private Class<TABLE> classType;
+    SessionFactory factory;
+    Class<TABLE> classType;
 
     AbstractRepository(SessionFactory factory, Class<TABLE> classType) {
         this.factory = factory;
@@ -46,7 +45,7 @@ abstract class AbstractRepository<TABLE, PK extends Serializable> {
     }
 
     public TABLE findByPK(PK pk) {
-        Session session = factory.openSession();
+        Session session = this.factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
@@ -68,7 +67,7 @@ abstract class AbstractRepository<TABLE, PK extends Serializable> {
     }
 
     public TABLE insert(TABLE newValue) {
-        Session session = factory.openSession();
+        Session session = this.factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
@@ -85,7 +84,7 @@ abstract class AbstractRepository<TABLE, PK extends Serializable> {
     }
 
     <T> List<TABLE> where(String attributeName, T attribute) {
-        Session session = factory.openSession();
+        Session session = this.factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
@@ -110,7 +109,7 @@ abstract class AbstractRepository<TABLE, PK extends Serializable> {
     }
 
     List<TABLE> likeAnywhere(String attributeName, String attribute) {
-        Session session = factory.openSession();
+        Session session = this.factory.openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();

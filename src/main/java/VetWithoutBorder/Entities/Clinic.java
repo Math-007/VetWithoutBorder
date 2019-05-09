@@ -24,6 +24,6 @@ public class Clinic {
     @Column(name = "numTelephone")
     private String phoneNumber;
 
-    @Embedded()
+    @Embedded
     private Address address;
 }
