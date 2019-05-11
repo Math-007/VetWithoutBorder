@@ -3,9 +3,20 @@ version: '2'
 services:
   vet-without-border:
     container_name: vet-without-border
-    network_mode: "host"
+    network_mode: 'host'
     build:
       context: .
       dockerfile: Dockerfile.VetWithoutBorder
     ports:
+      - '8080:8080'
+  web-server:
+    container_name: web-server
+    network_mode: "host"
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    ports:
       - '3000:3000'
+    depends_on:
+          - vet-without-border
+
