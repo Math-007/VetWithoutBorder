@@ -37,13 +37,13 @@ public class Animal {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "dateInscription", insertable = false, updatable = false)
+    @Column(name = "dateInscription", insertable = false)
     private Date inscriptionDate;
 
     @Column(name = "dateNaissance")
     private Date dateOfBirth;
 
-    @Column(name = "etatActuel", insertable = false, updatable = false)
+    @Column(name = "etatActuel", insertable = false)
     private String state;
 
     public String toString() {

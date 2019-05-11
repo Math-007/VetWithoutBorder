@@ -6,11 +6,7 @@ import VetWithoutBorder.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/animals")
@@ -57,5 +53,37 @@ public class AnimalController {
     @PostMapping(value = "")
     public Animal insert(@RequestBody Animal animal){
         return this.animalRepository.insert(animal);
+    }
+
+    @PutMapping(params = {"clinicNo",  "animalNo"})
+    public Animal updateField(@RequestBody Animal animal,
+                              @RequestParam(name = "clinicNo") String clinicNo,
+                              @RequestParam(name = "animalNo") Integer animalNo) {
+        Animal oldAnimal = this.animalRepository.findByPK(new AnimalPK(animalNo, clinicNo));
+        if (animal == null) {
+            throw new EntityNotFoundError("animal");
+        }
+
+
+        if(animal.getOwnerNo() != null) {
+            oldAnimal.setOwnerNo(animal.getOwnerNo());
+        }
+        if(animal.getType() != null) {
+            oldAnimal.setType(animal.getType());
+        }
+        if(animal.getState() != null) {
+            oldAnimal.setState(animal.getState());
+        }
+        if(animal.getDateOfBirth() != null) {
+            oldAnimal.setDateOfBirth(animal.getDateOfBirth());
+        }
+        if(animal.getInscriptionDate() != null) {
+            oldAnimal.setInscriptionDate(animal.getInscriptionDate());
+        }
+        if(animal.getDescription() != null){
+            oldAnimal.setDescription(animal.getDescription());
+        }
+
+        return this.animalRepository.insert(oldAnimal);
     }
 }

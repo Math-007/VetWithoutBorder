@@ -71,7 +71,7 @@ abstract class AbstractRepository<TABLE, PK extends Serializable> {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            session.save(newValue);
+            session.saveOrUpdate(newValue);
             tx.commit();
 
             return newValue;
