@@ -38,15 +38,12 @@ public class Animal {
     private String description;
 
     @Column(name = "dateInscription", insertable = false, updatable = false)
-    // @GeneratedValue(strategy=GenerationType.IDENTITY)
-    // @Convert(converter = TimeConverter.class)
     private Date inscriptionDate;
 
     @Column(name = "dateNaissance")
-    //@Convert(converter = TimeConverter.class)
     private Date dateOfBirth;
 
-    @Column(name = "etatActuel")
+    @Column(name = "etatActuel", insertable = false, updatable = false)
     private String state;
 
     public String toString() {
